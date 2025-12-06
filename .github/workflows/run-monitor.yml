@@ -1,0 +1,31 @@
+name: Monitoramento e Variáveis
+on: [push]
+env:
+  WORKFLOW_VAR: "Nivel Workflow"
+
+jobs:
+  debug-vars:
+    runs-on: ubuntu-latest
+    env:
+      ACTIONS_STEP_DEBUG: true
+      JOB_VAR: "Nivel Job"
+    steps:
+      - name: Exibir Variáveis
+        env:
+          STEP_VAR: "Nivel Step"
+        run: |
+          echo "Var Workflow: $WORKFLOW_VAR"
+          echo "Var Job: $JOB_VAR"
+          echo "Var Step: $STEP_VAR"
+
+      - name: Testar API Key
+        env:
+          MY_API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Verificando chave de segurança..."
+          if [ -z "$MY_API_KEY" ]; then
+            echo "Erro: Chave não encontrada"
+            exit 1
+          else
+            echo "Chave carregada com segurança (Mascarada pelo GitHub)"
+          fi

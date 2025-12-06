@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: devcalc-api-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: devcalc-api
@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
         - name: devcalc-api
-          image: devcalc-api:latest
-          imagePullPolicy: Never
+          image: gbussad/devcalc-api:latest
           ports:
             - containerPort: 8080
